@@ -1,0 +1,83 @@
+﻿@model IEnumerable<BLL.Dtos.ProductDto>
+
+@{
+    ViewBag.Title = "UrunListesi";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subcategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+       
+      
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subcategory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+   
+        <td>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                @if (item.Active)
+                {
+                    <a href="/urun/activate/@item.Id" type="button" class="btn btn-success" title="Pasif yap">
+                        <i class="fa-solid fa-check"></i>
+                    </a>
+                }
+                else
+                {
+                    <a href="/urun/activate/@item.Id" type="button" class="btn btn-secondary" title="Aktif et">
+                        <i class="fa-solid fa-xmark"></i>
+                    </a>
+                }
+                @if (item.Deleted)
+                {
+                    <button type="button" class="btn btn-danger" title="Geri al">
+                        <i class="fa-solid fa-recycle"></i>
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-info" title="Sil">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                }
+                <button type="button" class="btn btn-primary" title="Detay">
+                    <i class="fa-solid fa-eye"></i> Detay
+                </button>
+                <button type="button" class="btn btn-warning" title="Düzenle">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+}
+
+</table>
