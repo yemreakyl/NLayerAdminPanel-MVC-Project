@@ -54,6 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbContexts\MaterialsDbContext.cs" />
+    <Compile Include="Migrations\202206090938191_initial.cs" />
+    <Compile Include="Migrations\202206090938191_initial.designer.cs">
+      <DependentUpon>202206090938191_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\Bases\MaterialsBaseRepository.cs" />
     <Compile Include="Repositories\Bases\RetailBaseRepository.cs" />
     <Compile Include="Repositories\Bases\WholeSaleBaseRepository.cs" />
@@ -79,6 +84,11 @@
   <ItemGroup>
     <Folder Include="Repositories\Retails\" />
     <Folder Include="Repositories\WholeSale\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202206090938191_initial.resx">
+      <DependentUpon>202206090938191_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
