@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Web.UI.AdminPanel.Controllers
 {
-    public class HomrController : Controller
+    public class HomeController : Controller
     {
         // GET: Product
         public ActionResult Index()

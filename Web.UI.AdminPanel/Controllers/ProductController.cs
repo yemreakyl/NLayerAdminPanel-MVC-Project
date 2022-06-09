@@ -12,7 +12,7 @@ namespace Web.UI.AdminPanel.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View();
+            return View(ProductWorker.GetProducts());
         }
 
         // GET: Product/Details/5

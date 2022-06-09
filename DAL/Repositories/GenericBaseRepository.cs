@@ -64,8 +64,14 @@ namespace DAL
 
         public IQueryable<T> ReadMany(Expression<Func<T, bool>> expression = null)
         {
-          var Entities=_set.Where(expression);
-            return Entities;
+            if (expression == null)
+            {
+                return _set;
+            }
+            else
+            {
+                return _set.Where(expression);
+            }
         }
 
         public T ReadOne(object entityKey)

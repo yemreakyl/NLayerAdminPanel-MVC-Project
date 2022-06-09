@@ -1,13 +1,13 @@
 ﻿using BLL.Dtos;
 using System.Linq;
-
+using System.Data.Entity;
 namespace BLL.Workers
 {
     public class ProductWorker
     {
         public static IQueryable<ProductDto> GetProducts()
         {
-            return from i in Repositories.productRepo.ReadMany()
+            var ProductDto=from i in Repositories.productRepo.ReadMany()
                    select new ProductDto()
                    {
                        Active = i.Active,
@@ -18,6 +18,7 @@ namespace BLL.Workers
                        Title = i.Title,
                        Subcategory = i.Subcategory.Title
                    };
+            return ProductDto;
         }
         public static void ChangeItemActivate(int entitykey)
         {
