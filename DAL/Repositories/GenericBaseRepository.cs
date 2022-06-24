@@ -23,43 +23,55 @@ namespace DAL
         public void DeleteMany(IQueryable<T> entities)
         {
            _set.RemoveRange(entities);
+            _context.SaveChanges();
         }
 
         public void DeleteOne(T entity)
         {
-            _set.Remove(entity);
+            if (entity != null)
+            {
+                _set.Remove(entity);
+                _context.SaveChanges();
+            }
         }
 
         public void DeleteOne(object entityKey)
         {
-            var Entity=ReadOne(entityKey);
-            _set.Remove(Entity);
+            if (entityKey != null)
+            {
+                DeleteOne(ReadOne(entityKey));
+                _context.SaveChanges();
+            }
         }
 
         public bool Exists(object entityKey)
         {
-            var Entity = _set.Find(entityKey);
-            if (Entity==null)
-            {
-                return false;
-            }
-            return true;
+            return entityKey != null && ReadOne(entityKey) != null;
         }
 
         public bool Exists(T entity)
         {
-            return _set.Any(x => x.Equals(entity));
+            return entity != null && _set.Any(x => x.Equals(entity));
         }
 
         public void InsertMany(IQueryable<T> entities)
         {
-            _set.AddRange(entities);
+
+            if (entities.Count() > 0)
+            {
+                _set.AddRange(entities);
+                _context.SaveChanges();
+            }
         }
 
         public void InsertOne(T entity)
         {
-            _set.Add(entity);
-            
+            if (entity != null)
+            {
+                _set.Add(entity);
+                _context.SaveChanges();
+            }
+
         }
 
         public IQueryable<T> ReadMany(Expression<Func<T, bool>> expression = null)
@@ -81,15 +93,21 @@ namespace DAL
 
         public void UpdateMany(IQueryable<T> entities)
         {
-            foreach (var entity in entities)
+            if (entities.Count() > 0)
             {
-                _context.Entry(entity).State= EntityState.Modified;
+                foreach (var entity in entities)
+                {
+                    _context.Entry(entity).State = EntityState.Modified;
+                    _context.SaveChanges();
+                }
             }
         }
 
-        public void UpdateOne(T entity)
+        public void UpdateOne(object entityKey, T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            var orj_entity = ReadOne(entity);
+            _context.Entry(orj_entity).CurrentValues.SetValues(entity);
+            _context.SaveChanges();
         }
     }
 }

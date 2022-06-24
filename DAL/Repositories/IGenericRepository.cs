@@ -21,7 +21,7 @@ namespace DAL
         bool Exists(T entity);
 
         //Update:
-        void UpdateOne(T entity);
+        void UpdateOne(object entityKey, T entity);
         void UpdateMany(IQueryable<T> entities);
 
         //Delete:

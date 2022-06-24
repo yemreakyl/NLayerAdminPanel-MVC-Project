@@ -58,7 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Retail\" />
     <Folder Include="Models\wholesale\" />
   </ItemGroup>
   <ItemGroup>

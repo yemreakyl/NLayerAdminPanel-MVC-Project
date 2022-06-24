@@ -1,0 +1,81 @@
+﻿@model BLL.Dtos.ProductDetail
+
+@{
+    ViewBag.Title = "CreateOrEdit";
+}
+
+<div class="card my-2">
+    <div class="card-header">
+        @if (Model != null)
+        {
+            <h2>Update Product</h2>
+        }
+        else
+        {
+            <h2>Add Product</h2>
+        }
+    </div>
+    <div class="card-body">
+        @if (Model != null)
+        {
+            <h5 class="card-title">@Model.Id: @Model.Title</h5>
+        }
+        else
+        {
+            <h5>New Product</h5>
+        }
+    <p class="card-text">Update by entering the relevant data in the fields below.</p>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = Html.DisplayNameFor(m => m.Title) } })
+                        @Html.LabelFor(model => model.Title)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        @Html.DropDownListFor(model => model.SubcategoryId, new SelectList(ViewBag.Altkategoriler, "Id", "Title"), "Choose Subcategory", new { @class = "form-control", @placeholder = Html.DisplayNameFor(m => m.SubcategoryId) })
+                        @Html.LabelFor(model => model.SubcategoryId)
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = Html.DisplayNameFor(m => m.Description) } })
+                        @Html.LabelFor(model => model.Description)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @placeholder = Html.DisplayNameFor(m => m.Price) } })
+                        @Html.LabelFor(model => model.Price)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        @Html.EditorFor(model => model.CampaignRate, new { htmlAttributes = new { @class = "form-control", @placeholder = Html.DisplayNameFor(m => m.CampaignRate) } })
+                        @Html.LabelFor(model => model.CampaignRate)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        <div class="form-check form-switch">
+                            @Html.EditorFor(model => model.Campaign, new { htmlAttributes = new { @class = "form-check-input", @role = "switch" } })
+                            @Html.LabelFor(model => model.Campaign, new { @class = "form-check-label" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 text-center">
+                    <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Add</button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="card-footer">
+        @Html.ActionLink("Back to List", "Index", "Product", new { }, new { @class = "btn btn-sm btn-outline-secondary" })
+    </div>
+</div>
+

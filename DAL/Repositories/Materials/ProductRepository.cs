@@ -15,7 +15,14 @@ namespace DAL.Repositories.Materials
         {
             var Product=ReadOne(EntityKey);
             Product.Active = !Product.Active;
+            UpdateOne(EntityKey,Product );
         }
-    
+        public void ProductDeleteOrUndo(int Id)
+        {
+            var urun = ReadOne(Id);
+            urun.Deleted = !urun.Deleted;
+            UpdateOne(Id, urun);
+        }
+
     }
 }

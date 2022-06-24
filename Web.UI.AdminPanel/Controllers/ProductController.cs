@@ -1,4 +1,5 @@
-﻿using BLL.Workers;
+﻿using BLL.Dtos;
+using BLL.Workers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,72 +21,47 @@ namespace Web.UI.AdminPanel.Controllers
         {
             return View();
         }
-
-        // GET: Product/Create
-        public ActionResult Create()
+        // GET: Urun/Edit/5
+        public ActionResult CreateOrEdit(int? id)
         {
-            return View();
-        }
-
-        // POST: Product/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            //Html tarafında dropdown (select) etiketini doldurmak için yazılır.
+            ViewBag.SubCategories = ProductWorker.GetSubCategories();
+            if (id != null)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                return View(ProductWorker.GetProductDetails((int)id));
             }
-            catch
+            else
             {
                 return View();
             }
         }
-
-        // GET: Product/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Product/Edit/5
+        // POST: Urun/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult CreateOrEdit(int? id, ProductDetail model)
         {
-            try
-            {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (id == null)
             {
-                return View();
+                ProductWorker.AddProduct(model);
             }
+            else
+            {
+                ProductWorker.UpdateProduct(model);
+            }
+
+            return RedirectToAction("Index");
         }
+
+  
 
         // GET: Product/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            ProductWorker.ProductDeleteOrUndo(id);
+            return RedirectToAction("Index");
         }
 
-        // POST: Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+     
         public ActionResult Activate(int ıd)
         {
             ProductWorker.ChangeItemActivate(ıd);

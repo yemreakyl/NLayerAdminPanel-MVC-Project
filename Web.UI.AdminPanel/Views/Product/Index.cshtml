@@ -1,83 +1,82 @@
 ﻿@model IEnumerable<BLL.Dtos.ProductDto>
 
 @{
-    ViewBag.Title = "UrunListesi";
+    ViewBag.Title = "Ürün Listesi";
 }
+<div class="card my-2">
+    <div class="card-header">
+        @Html.ActionLink("Create New", "CreateOrEdit", "Urun", new { }, new { @class = "btn btn-sm btn-outline-primary float-end" })
+        <h2>@ViewBag.Title</h2>
 
-<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subcategory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
-       
-      
-        <th></th>
-    </tr>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-striped table-hover p-0 m-0">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subcategory)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </th>
+                <th class="w-auto"></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subcategory)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-   
-        <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                @if (item.Active)
-                {
-                    <a href="/urun/activate/@item.Id" type="button" class="btn btn-success" title="Pasif yap">
-                        <i class="fa-solid fa-check"></i>
-                    </a>
-                }
-                else
-                {
-                    <a href="/urun/activate/@item.Id" type="button" class="btn btn-secondary" title="Aktif et">
-                        <i class="fa-solid fa-xmark"></i>
-                    </a>
-                }
-                @if (item.Deleted)
-                {
-                    <button type="button" class="btn btn-danger" title="Geri al">
-                        <i class="fa-solid fa-recycle"></i>
-                    </button>
-                }
-                else
-                {
-                    <button type="button" class="btn btn-info" title="Sil">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                }
-                <button type="button" class="btn btn-primary" title="Detay">
-                    <i class="fa-solid fa-eye"></i> Detay
-                </button>
-                <button type="button" class="btn btn-warning" title="Düzenle">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-            </div>
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subcategory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @item.CreateDate.ToString("dd MMMM yyyy dddd HH:mm:ss")
+                    </td>
+                    <td class="w-auto">
+                        <div class="btn-group float-end" role="group" aria-label="Basic example">
+                            @if (item.Active)
+                            {
+                                <a href="/urun/activate/@item.Id" type="button" class="btn btn-success" title="Passive">
+                                    <i class="fa-solid fa-check"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/urun/activate/@item.Id" type="button" class="btn btn-secondary" title="Active">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </a>
+                            }
+                            @if (item.Deleted)
+                            {
+                                <a href="/urun/delete/@item.Id" type="button" class="btn btn-danger" title="Undo">
+                                    <i class="fa-solid fa-recycle"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/urun/delete/@item.Id" type="button" class="btn btn-info" title="Delete">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            }
+                            <a href="/urun/createoredit/@item.Id" type="button" class="btn btn-warning" title="Edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
+    </div>
+</div>
